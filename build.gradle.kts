@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.20"
+    kotlin("jvm") version "1.9.20"
     `maven-publish`
     alias(libs.plugins.binary.compatibility.validator)
 }
@@ -31,8 +31,6 @@ tasks {
         expand("projectVersion" to project.version)
     }
 }
-
-kotlin { jvmToolchain(11) }
 
 java {
     withSourcesJar()
