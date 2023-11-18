@@ -154,6 +154,7 @@ class BytecodeContext internal constructor(private val options: PatcherOptions) 
                     override fun getOpcodes() = this@BytecodeContext.opcodes
                 }, DexIO.DEFAULT_MAX_DEX_POOL_SIZE, null
             )
+            System.gc()
         }.map { PatcherResult.PatchedDexFile(it.key, it.value.readAt(0)) }
     }
 }
