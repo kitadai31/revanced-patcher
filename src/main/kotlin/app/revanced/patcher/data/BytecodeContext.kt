@@ -109,7 +109,8 @@ class BytecodeContext internal constructor(private val options: PatcherOptions) 
 
             logger.info("Merging integrations")
 
-            // TODO: Multi-thread this.
+            val classMap = classes.associateBy { it.type }
+
             this@Integrations.forEach { integrations ->
                 MultiDexIO.readDexFile(
                     true,
@@ -117,8 +118,8 @@ class BytecodeContext internal constructor(private val options: PatcherOptions) 
                     null,
                     null
                 ).classes.forEach classDef@{ classDef ->
-                    val existingClass = classes.find { it.type == classDef.type } ?: run {
-                        logger.fine("Merging $classDef")
+                    val existingClass = classMap[classDef.type] ?: run {
+                        logger.fine("Adding $classDef")
                         classes.add(classDef)
                         return@classDef
                     }
