@@ -11,7 +11,7 @@ internal object AnnotationExtensions {
      */
     fun <T : Annotation> Class<*>.findAnnotationRecursively(targetAnnotation: KClass<T>): T? {
         fun <T : Annotation> Class<*>.findAnnotationRecursively(
-            targetAnnotation: Class<T>, traversed: MutableSet<Annotation>
+            targetAnnotation: Class<T>, traversed: HashSet<Annotation>
         ): T? {
             val found = this.annotations.firstOrNull { it.annotationClass.java.name == targetAnnotation.name }
 
@@ -28,6 +28,6 @@ internal object AnnotationExtensions {
             return null
         }
 
-        return this.findAnnotationRecursively(targetAnnotation.java, mutableSetOf())
+        return this.findAnnotationRecursively(targetAnnotation.java, hashSetOf())
     }
 }
